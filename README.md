@@ -12,6 +12,7 @@ and fixed some incompatible code under GHC7.8.3.
 ```
 $ cabal sandbox init
 $ cabal install
+$ export PORT=3000
 $ .cabal-sandbox/bin/scotty-todo
 ```
 

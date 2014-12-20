@@ -24,9 +24,11 @@ import qualified Data.Text as T
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Trans.Resource (runResourceT, ResourceT)
 import Database.Persist.Sql
-import Control.Monad (forM_)
+import Control.Monad
 import Control.Applicative
 import Control.Monad.Logger
+import System.Environment
+
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Post
@@ -46,7 +48,8 @@ blaze = S.html . renderHtml
 
 main = do
   runDb $ runMigration migrateAll
-  scotty 3000 $ do
+  port <- liftM read $ getEnv "PORT"
+  scotty port $ do
     S.get "/create/:title" $ do
       _title <- S.param "title"
       now <- liftIO getCurrentTime
