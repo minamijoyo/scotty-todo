@@ -1,15 +1,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 import Web.Scotty
-import Network.HTTP.Types
+import Text.Blaze.Html5
+import Text.Blaze.Html5.Attributes
+import qualified Web.Scotty as S
+import qualified Text.Blaze.Html5 as H
+import qualified Text.Blaze.Html5.Attributes as A
+import Text.Blaze.Html.Renderer.Text
 
 main :: IO ()
 main = scotty 3000 $ do
-  get "/agent" $ do
-    agent <- header "User-Agent"
-    case agent of
-      Just ua -> text ua
-      Nothing -> text "no User-Agent header"
-
-  get "/adit" $ do
-    status status302
-    setHeader "Location" "http://www.adit.io"
+  get "/" $ do
+    S.html . renderHtml $ do
+      h1 "My todo list"
