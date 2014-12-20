@@ -16,3 +16,9 @@ $ .cabal-sandbox/bin/scotty-todo
 ```
 
 and  open 'http://localhost:3000/' in your browser.
+
+### Show Todo list
+GET http://localhost:3000/
+
+### Create Todo list
+GET http://localhost:3000/create/:title
